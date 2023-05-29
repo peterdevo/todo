@@ -35,7 +35,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .modal {
   position: fixed;
   z-index: 1;

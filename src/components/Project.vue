@@ -34,9 +34,12 @@ export default {
 </script>
 
 <template>
-  <div class="bg-gray-700 p-3 border-2 border-red-600 flex justify-between rounded my-1">
+  <div
+    class="bg-gray-700 p-3 border-2 flex justify-between rounded my-1"
+    :class="projectObj.isCompleted ? 'border-green-600' : 'border-red-600'"
+  >
     <label>{{ projectObj.title }}</label>
-    <div class="flex">
+    <div class="flex gap-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -59,6 +62,7 @@ export default {
         stroke-width="1.5"
         stroke="currentColor"
         class="w-6 h-6"
+        :class="projectObj.isCompleted?'bg-green-600':''"
       >
         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
       </svg>

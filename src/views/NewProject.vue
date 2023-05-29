@@ -7,7 +7,8 @@ export default {
       project: {
         id: '',
         title: '',
-        details: ''
+        details: '',
+        isCompleted: ''
       },
       projectStore: useProjectStore()
     }
@@ -18,10 +19,11 @@ export default {
       this.reset(event)
     },
 
-    reset(event){
-      this.project.id=''
-      this.project.title=''
-      this.project.details=''
+    reset(event) {
+      this.project.id = ''
+      this.project.title = ''
+      this.project.details = ''
+      this.project.isCompleted = false
       event.target.reset()
     }
   },
@@ -49,7 +51,9 @@ export default {
       <button type="submit" class="bg-green-800 text-white font-bold py-2 px-4 rounded">
         Add project
       </button>
-      <div v-if="projectStore.isProjectAdded" class="bg-green-500 text-center">Sucessfully added</div>
+      <div v-if="projectStore.isProjectAdded" class="bg-green-500 text-center">
+        Sucessfully added
+      </div>
     </div>
   </form>
 </template>

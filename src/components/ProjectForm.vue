@@ -30,6 +30,15 @@ export default {
         rows="5"
         v-model="data.details"
       ></textarea>
+      <div class="flex  items-center">
+        <input
+          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-2"
+          type="checkbox"
+          id="checkbox"
+          v-model="data.isCompleted"
+        />
+        <label for="checkbox">{{ data.isCompleted ? 'Completed' : 'Ongoing' }}</label>
+      </div>
     </div>
   </form>
 </template>
