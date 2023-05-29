@@ -1,7 +1,6 @@
 <script>
 import { useProjectStore } from '../stores/ProjectStore'
 import { useModalStore } from '../stores/ModalStore'
-import Test from '../components/test.vue'
 import ProjectForm from './ProjectForm.vue'
 export default {
   data() {
@@ -14,9 +13,18 @@ export default {
     deleteProject(id) {
       this.projectStore.deleteProject(id)
     },
-    editProject() {
-      console.log(this.projectObj)
-      this.modalStore.openModal(ProjectForm,this.projectObj)
+    openProject() {
+      this.modalStore.openModal(
+        ProjectForm,
+        { ...this.projectObj },
+        {
+          label: 'update',
+          callback: (project) => {
+            this.projectStore.updateProject(project)
+            this.modalStore.closeModal()
+          }
+        }
+      )
     }
   },
   props: {
@@ -36,7 +44,7 @@ export default {
         stroke-width="1.5"
         stroke="currentColor"
         class="w-6 h-6 cursor-pointer"
-        @click="editProject"
+        @click="openProject"
       >
         <path
           stroke-linecap="round"

@@ -6,23 +6,25 @@ export const useModalStore = defineStore('modalStore', {
     return {
       isOpen: false,
       view: {},
-      actions: [],
+      action: {},
       props: {}
     }
   },
   getters: {
-    isModalOpen: (state) => state.isOpen
+    isModalOpen: (state) => state.isOpen,
+    modalAction: (state) => state.action
   },
   actions: {
-    openModal(view, props) {
+    openModal(view, props, action) {
       this.isOpen = true
       this.view = markRaw(view)
       this.props = props
+      this.action = action
     },
     closeModal() {
       this.isOpen = false
       this.view = {}
-      this.actions = []
+      this.action = {}
     }
   }
 })

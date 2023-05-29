@@ -1,18 +1,16 @@
 <script>
+import { useModalStore } from '../stores/ModalStore'
 export default {
-  props: ['data', 'isAdded', 'isFromCreatedComponent'],
+  props: ['data', 'isAdded'],
   emits: ['update:project'],
+  data: () => {
+    return {
+      modalStore: useModalStore()
+    }
+  },
   methods: {
     onSubmit(event) {
       this.$emit('onSubmit', event)
-    }
-  },
-  computed: {
-    isFromCreatedComponent() {
-      if (this.isFromCreatedComponent) {
-        return true
-      }
-      return false
     }
   }
 }
@@ -32,12 +30,6 @@ export default {
         rows="5"
         v-model="data.details"
       ></textarea>
-      <button type="submit" class="bg-green-800 text-white font-bold py-2 px-4 rounded">
-        {{ isFromCreatedComponent ? 'Add project' : 'Update project' }}
-      </button>
-      <div v-if="isAdded && isFromCreatedComponent" class="bg-green-500 text-center">
-        Sucessfully added
-      </div>
     </div>
   </form>
 </template>
