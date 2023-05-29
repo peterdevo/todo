@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
+import { useToastStore } from './ToasterStore'
 export const useProjectStore = defineStore('projectStore', {
   state: () => {
     return {
       projects: [],
       isAdded: false,
-      isProjectDelete: false
+      isProjectDelete: false,
+      toasterStore: useToastStore()
     }
   },
   getters: {
@@ -15,10 +17,7 @@ export const useProjectStore = defineStore('projectStore', {
   actions: {
     addProject(project) {
       this.projects.push({ ...project })
-      this.isAdded = true
-      setTimeout(() => {
-        this.isAdded = false
-      }, 1000)
+      this.toasterStore.success('Successfully added')
     },
     deleteProject(id) {
       if (this.projects.length > 0) {
@@ -27,9 +26,11 @@ export const useProjectStore = defineStore('projectStore', {
     },
     updateProject(project) {
       const index = this.projects.findIndex((p) => p.id == project.id)
-      if (index !== -1) {
-        this.projects[index] = project
+      if (index === -1) {
+        return
       }
+      this.projects[index] = project
+      this.toasterStore.success('Successfully updated')
     }
   }
 })

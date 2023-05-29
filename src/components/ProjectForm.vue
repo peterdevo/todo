@@ -10,7 +10,7 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      this.$emit('onSubmit', event)
+      this.$emit('onSubmit')
     }
   }
 }

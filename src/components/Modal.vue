@@ -23,7 +23,7 @@ export default {
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
-        <component :is="modalStore.view" :data="modalStore.props"></component>
+        <component :is="modalStore.view" :data="modalStore.props" ></component>
         <button
           @click="modalStore.modalAction.callback(modalStore.props)"
           class="bg-green-800 text-white font-bold py-2 px-4 my-1 rounded"

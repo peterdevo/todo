@@ -2,10 +2,12 @@
 import { RouterView } from 'vue-router'
 import NavigationLink from './components/NavigationLinks.vue'
 import Modal from './components/Modal.vue'
+import Toaster from './components/Toaster.vue'
 export default {
   components: {
     NavigationLink,
-    Modal
+    Modal,
+    Toaster
   }
 }
 </script>
@@ -13,6 +15,7 @@ export default {
 <template>
   <div id="app">
     <Modal />
+    <Toaster />
     <NavigationLink />
     <div class="flex justify-center h-full mt-20">
       <div class="w-3/6">

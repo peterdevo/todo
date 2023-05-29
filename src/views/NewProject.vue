@@ -15,6 +15,14 @@ export default {
   methods: {
     onSubmit(event) {
       this.projectStore.addProject({ ...this.project, id: crypto.randomUUID() })
+      this.reset(event)
+    },
+
+    reset(event){
+      this.project.id=''
+      this.project.title=''
+      this.project.details=''
+      event.target.reset()
     }
   },
 
