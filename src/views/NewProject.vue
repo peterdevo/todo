@@ -1,6 +1,5 @@
 <script>
 import { useProjectStore } from '../stores/ProjectStore'
-import ProjectForm from '../components/ProjectForm.vue'
 export default {
   data() {
     return {
@@ -28,9 +27,6 @@ export default {
     }
   },
 
-  components: {
-    ProjectForm
-  }
 }
 </script>
 
@@ -51,9 +47,6 @@ export default {
       <button type="submit" class="bg-green-800 text-white font-bold py-2 px-4 rounded">
         Add project
       </button>
-      <div v-if="projectStore.isProjectAdded" class="bg-green-500 text-center">
-        Sucessfully added
-      </div>
     </div>
   </form>
 </template>
