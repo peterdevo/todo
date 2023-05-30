@@ -18,7 +18,7 @@ export default {
         ProjectForm,
         { ...this.projectObj },
         {
-          label: 'update',
+          label: 'Update',
           callback: (project) => {
             this.projectStore.updateProject(project)
             this.modalStore.closeModal()

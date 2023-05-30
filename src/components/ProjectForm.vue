@@ -1,7 +1,7 @@
 <script>
 import { useModalStore } from '../stores/ModalStore'
 export default {
-  props: ['data', 'isAdded'],
+  props: ['data'],
   emits: ['update:project'],
   data: () => {
     return {

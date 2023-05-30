@@ -1,25 +1,41 @@
 <script>
 import { useProjectStore } from '../stores/ProjectStore'
 import Project from '../components/Project.vue'
+import { storeToRefs } from 'pinia'
 export default {
   data() {
     return {
       projectStore: useProjectStore(),
-      copiedProject: {}
+      copiedProject: {},
+      activeLink: '',
+      storeRef: storeToRefs(useProjectStore())
     }
   },
   mounted() {
     this.copiedProject = this.projectStore.projectObjs
+    this.activeLink = 'none'
   },
+
   methods: {
     filterProjects(state) {
       if (state === 'completed') {
         this.copiedProject = this.projectStore.projectObjs.filter((p) => p.isCompleted)
+        this.activeLink = 'completed'
       } else if (state === 'ongoing') {
         this.copiedProject = this.projectStore.projectObjs.filter((p) => !p.isCompleted)
+        this.activeLink = 'ongoing'
       } else {
         this.copiedProject = this.projectStore.projectObjs
+        this.activeLink = 'none'
       }
+    }
+  },
+  watch: {
+    'storeRef.projects': {
+      handler() {
+        this.filterProjects(this.activeLink)
+      },
+      deep: true
     }
   },
 
@@ -30,10 +46,25 @@ export default {
 </script>
 
 <template>
-  <div class="flex justify-evenly mb-5">
-    <span @click="filterProjects('none')" class="cursor-pointer">ALL</span>
-    <span @click="filterProjects('completed')" class="cursor-pointer">COMPLETED</span>
-    <span @click="filterProjects('ongoing')" class="cursor-pointer">ONGOING</span>
+  <div class="flex gap-5 mb-5">
+    <span
+      :class="activeLink === 'none' ? 'text-1xl font-bold drop-shadow' : ''"
+      @click="filterProjects('none')"
+      class="cursor-pointer"
+      >ALL</span
+    >
+    <span
+      :class="activeLink === 'completed' ? 'text-1xl font-bold drop-shadow' : ''"
+      @click="filterProjects('completed')"
+      class="cursor-pointer"
+      >COMPLETED</span
+    >
+    <span
+      :class="activeLink === 'ongoing' ? 'text-1xl font-bold drop-shadow' : ''"
+      @click="filterProjects('ongoing')"
+      class="cursor-pointer"
+      >ONGOING</span
+    >
   </div>
   <div v-if="projectStore.isAnyProject" v-for="item of copiedProject">
     <Project :projectObj="item" :key="item.id" />

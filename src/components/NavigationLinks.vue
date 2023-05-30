@@ -1,7 +1,7 @@
 <template>
   <div class="nav italic text-2xl">
     <RouterLink to="/projects" active-class="isActive">Projects</RouterLink>
-    <RouterLink to="/newproject" active-class="isActive">Add new project</RouterLink>
+    <RouterLink to="/newproject" active-class="isActive">Add project</RouterLink>
   </div>
 </template>
 

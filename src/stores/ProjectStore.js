@@ -4,14 +4,12 @@ export const useProjectStore = defineStore('projectStore', {
   state: () => {
     return {
       projects: [],
-      isAdded: false,
       isProjectDelete: false,
       toasterStore: useToastStore()
     }
   },
   getters: {
     projectObjs: (state) => state.projects,
-    isProjectAdded: (state) => state.isAdded,
     isAnyProject: (state) => state.projects.length > 0
   },
   actions: {
