@@ -2,6 +2,7 @@
 import { useProjectStore } from '../stores/ProjectStore'
 import Project from '../components/Project.vue'
 import { storeToRefs } from 'pinia'
+import { postData } from '../services/ProjectService'
 export default {
   data() {
     return {
@@ -11,9 +12,10 @@ export default {
       storeRef: storeToRefs(useProjectStore())
     }
   },
-  mounted() {
+  async mounted() {
     this.copiedProject = this.projectStore.projectObjs
     this.activeLink = 'none'
+    console.log(await postData())
   },
 
   methods: {
