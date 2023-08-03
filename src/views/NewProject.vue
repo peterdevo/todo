@@ -7,7 +7,8 @@ export default {
         id: '',
         title: '',
         details: '',
-        isCompleted: ''
+        isCompleted: false,
+        created: new Date()
       },
       projectStore: useProjectStore()
     }

@@ -1,5 +1,11 @@
 import { defineStore } from 'pinia'
 import { useToastStore } from './ToasterStore'
+import {
+  addApiProject,
+  deleteApiProject,
+  getApiProjects,
+  updateApiProject
+} from '../services/ProjectService'
 export const useProjectStore = defineStore('projectStore', {
   state: () => {
     return {
@@ -13,21 +19,33 @@ export const useProjectStore = defineStore('projectStore', {
     isAnyProject: (state) => state.projects.length > 0
   },
   actions: {
-    addProject(project) {
-      this.projects.push({ ...project })
-      this.toasterStore.success('Successfully added')
+    async getProjects() {
+      this.projects = (await getApiProjects()).data
     },
-    deleteProject(id) {
-      if (this.projects.length > 0) {
-        this.projects = this.projects.filter((project) => project.id !== id)
+    async addProject(project) {
+      try {
+        await addApiProject(project)
+        this.toasterStore.success('Successfully added')
+      } catch (error) {
+        this.toasterStore.error('Failed to add project')
       }
     },
-    updateProject(project) {
-      const index = this.projects.findIndex((p) => p.id == project.id)
+    async deleteProject(id) {
+      try {
+        await deleteApiProject(id)
+        this.projects = this.projects.filter((project) => project.id !== id)
+        this.toasterStore.success('Successfully deleted')
+      } catch (error) {
+        this.toasterStore.success('Failed to delete project')
+      }
+    },
+    async updateProject(project) {
+      const data = (await updateApiProject(project)).data
+      const index = this.projects.findIndex((p) => p.id == data.id)
       if (index === -1) {
         return
       }
-      this.projects[index] = project
+      this.projects[index] = data
       this.toasterStore.success('Successfully updated')
     }
   }

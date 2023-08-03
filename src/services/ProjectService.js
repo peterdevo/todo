@@ -1,10 +1,12 @@
 import axios from 'axios'
 
-export const postData = async () => {
-  return await axios.post('https://jsonplaceholder.typicode.com/project', {
-    id: 1,
-    project: 'first',
-    details: 'test',
-    isCompleted: false
-  })
-}
+const baseURL = 'http://localhost:8080';
+
+const api = axios.create({
+  baseURL,
+});
+
+export const getApiProjects = () => api.get('/');
+export const addApiProject = (project) => api.post('/', project);
+export const updateApiProject = (project) => api.put('/', project);
+export const deleteApiProject = (id) => api.delete(`/${id}`);

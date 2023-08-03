@@ -2,34 +2,34 @@
 import { useProjectStore } from '../stores/ProjectStore'
 import Project from '../components/Project.vue'
 import { storeToRefs } from 'pinia'
-import { postData } from '../services/ProjectService'
+
 export default {
   data() {
     return {
       projectStore: useProjectStore(),
-      copiedProject: {},
+      copiedProjects: [],
       activeLink: '',
       storeRef: storeToRefs(useProjectStore())
     }
   },
   async mounted() {
-    this.copiedProject = this.projectStore.projectObjs
+    this.projectStore.getProjects()
     this.activeLink = 'none'
-    console.log(await postData())
   },
 
   methods: {
     filterProjects(state) {
       if (state === 'completed') {
-        this.copiedProject = this.projectStore.projectObjs.filter((p) => p.isCompleted)
+        this.copiedProjects = this.projectStore.projectObjs.filter((p) => p.isCompleted)
         this.activeLink = 'completed'
       } else if (state === 'ongoing') {
-        this.copiedProject = this.projectStore.projectObjs.filter((p) => !p.isCompleted)
+        this.copiedProjects = this.projectStore.projectObjs.filter((p) => !p.isCompleted)
         this.activeLink = 'ongoing'
       } else {
-        this.copiedProject = this.projectStore.projectObjs
+        this.copiedProjects = this.projectStore.projectObjs
         this.activeLink = 'none'
       }
+      
     }
   },
   watch: {
@@ -68,7 +68,7 @@ export default {
       >ONGOING</span
     >
   </div>
-  <div v-if="projectStore.isAnyProject" v-for="item of copiedProject">
+  <div v-if="projectStore.isAnyProject" v-for="item of copiedProjects">
     <Project :projectObj="item" :key="item.id" />
   </div>
   <h1 v-else class="text-center text-6xl">There are no added projects</h1>
