@@ -20,7 +20,12 @@ export const useProjectStore = defineStore('projectStore', {
   },
   actions: {
     async getProjects() {
-      this.projects = (await getApiProjects()).data
+      try {
+        const { result } = (await getApiProjects()).data
+        this.projects = result
+      } catch (error) {
+        this.toasterStore.error('Failed to get projects')
+      }
     },
     async addProject(project) {
       try {
@@ -40,12 +45,13 @@ export const useProjectStore = defineStore('projectStore', {
       }
     },
     async updateProject(project) {
-      const data = (await updateApiProject(project)).data
-      const index = this.projects.findIndex((p) => p.id == data.id)
+      const { result } = (await updateApiProject(project)).data
+      console.log(result)
+      const index = this.projects.findIndex((p) => p.id == result.id)
       if (index === -1) {
         return
       }
-      this.projects[index] = data
+      this.projects[index] = result
       this.toasterStore.success('Successfully updated')
     }
   }
