@@ -5,6 +5,8 @@ import NewProject from '../views/NewProject.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    { path: '/', 
+    redirect: '/projects' },
     {
       path: '/projects',
       name: 'projects',
@@ -15,7 +17,6 @@ const router = createRouter({
       name: 'new project',
       component: NewProject
     }
-
   ]
 })
 
